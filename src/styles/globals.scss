@@ -1,0 +1,37 @@
+@import './media';
+
+$bg-color: #B8B8B8;
+$primary-color: #ffffff;
+$max-width-mobile: 480px;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: sans-serif;
+  background-color: $bg-color;
+}
+
+.page-container {
+  padding: 1rem;
+  font-size: 1rem;
+  background-color: $bg-color;
+
+  @include respond-to(tablet) {
+    padding: 2rem;
+    font-size: 1.1rem;
+  }
+
+  @include respond-to(laptop) {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  @include respond-to(desktop) {
+    max-width: 1200px;
+  }
+}

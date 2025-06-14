@@ -1,0 +1,24 @@
+// src/styles/_media.scss
+
+// Breakpoints
+$small-mobile: 375px;
+$tablet: 767px;
+$laptop: 1024px;
+$desktop: 1440px;
+
+// Mixin mobile-first
+@mixin respond-to($device) {
+  @if $device == tablet {
+    @media screen and (min-width: $tablet) {
+      @content;
+    }
+  } @else if $device == laptop {
+    @media screen and (min-width: $laptop) {
+      @content;
+    }
+  } @else if $device == desktop {
+    @media screen and (min-width: $desktop) {
+      @content;
+    }
+  }
+}
