@@ -24,7 +24,7 @@ export const ProductCard = ({
       <p className="price">COP {price.toLocaleString()}</p>
       <p>Stock: {stock}</p>
       <button onClick={() => onAddClick(id)} disabled={stock === 0}>
-        Pagar con tarjeta
+        + Agregar al carrito
       </button>
     </div>
   );

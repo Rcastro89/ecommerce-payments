@@ -1,0 +1,14 @@
+@use '../styles/globals.scss' as v;
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  background-color: v.$background-color;
+}
