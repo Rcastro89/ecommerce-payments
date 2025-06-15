@@ -4,6 +4,7 @@ import type { Product } from "../../../../types/product";
 import { addToCart } from "../../../../slices/cart/cartSlice";
 
 import "./ProductCard.scss";
+import { decreaseStock } from "../../../../slices/products/productsSlice";
 
 interface ProductCardProps {
     product: Product;
@@ -18,6 +19,7 @@ export const ProductCard = ({
     const handleAddToCart = () => {
         if (stock > 0) {
             dispatch(addToCart(product));
+            dispatch(decreaseStock(product.idProduct));
         } else {
             alert("Producto sin stock");
         }

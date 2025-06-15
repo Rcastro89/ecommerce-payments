@@ -1,0 +1,36 @@
+.cart-page {
+  padding: 1rem;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .cart-items {
+    list-style: none;
+    padding: 0;
+
+    .cart-item {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background-color: #fef6f9; // un rosa muy claro
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+  }
+
+  .payment-options {
+    margin-top: 2rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type='radio'] {
+      margin-right: 0.5rem;
+    }
+  }
+}
