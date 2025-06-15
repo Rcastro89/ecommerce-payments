@@ -1,35 +1,40 @@
-import { useSelector } from 'react-redux';
-import { selecTotalItems } from '../../slices/cart/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { selecTotalItems } from '../../../slices/cart/selectors';
 import { useState } from 'react';
+
+import './CartPage.scss';
+import { CartCard } from '../components/CartCard';
+import { decreaseStock, increaseStock } from '../../../slices/products/productsSlice';
+import type { CartItem } from '../../../types/cartItem';
+import { removeFromCart } from '../../../slices/cart/cartSlice';
 
 const CartPage = () => {
     const cartItems = useSelector(selecTotalItems);
+    const dispatch = useDispatch();
     const [paymentType, setPaymentType] = useState<'efectivo' | 'tarjeta'>('efectivo');
 
     const handlePaymentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPaymentType(event.target.value as 'efectivo' | 'tarjeta');
     };
 
+    const handleDeleteToCart = (product: CartItem) => {
+            dispatch(removeFromCart(product.idProduct));
+            for (let i = 0; i < product.quantity; i++){
+                dispatch(increaseStock(product.idProduct));
+            }
+        };
+
     return (
-        <div className="cart-page">
-            <h2>🛒 Tu Carrito</h2>
+        <main className="cart-page">
+            <header className="cart-page-title">🛒 Tu Carrito</header>
 
             {cartItems.length === 0 ? (
                 <p>No tienes productos en el carrito.</p>
             ) : (
-                <ul className="cart-items">
-                    {cartItems.map((item) => (
-                        <li key={item.idProduct} className="cart-item">
-                            <div>
-                                <strong>{item.name}</strong>
-                            </div>
-                            <div>
-                                <p>Precio: ${item.price.toLocaleString()}</p>
-                                <p>Cantidad: {item.quantity}</p>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                <CartCard 
+                    cartItems={cartItems} 
+                    deleteItem={handleDeleteToCart}
+                    />
             )}
 
             <hr />
@@ -57,7 +62,7 @@ const CartPage = () => {
                     Tarjeta de crédito
                 </label>
             </div>
-        </div>
+        </main>
     );
 };
 

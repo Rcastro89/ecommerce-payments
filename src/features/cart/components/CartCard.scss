@@ -1,0 +1,54 @@
+@use '../../../styles/globals.scss' as v;
+
+.cart-items {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+
+    .cart-item {
+        position: relative;
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        background-color: v.$card-background;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        height: 13vh;
+
+        .cart-item-image {
+            width: 30%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            height: 100%;
+        }
+
+        .cart-trash {
+            background-color: transparent;
+            border: none;
+        }
+
+        .cart-item-description {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 70%;
+            padding: 0 1rem;
+
+            .cart-item-title {
+                font-size: 1.1rem;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 0.5rem;
+            }
+
+            .cart-item-price {
+                color: v.$primary-color;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+}

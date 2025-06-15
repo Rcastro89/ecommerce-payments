@@ -2,9 +2,10 @@ import { useDispatch } from "react-redux";
 
 import type { Product } from "../../../../types/product";
 import { addToCart } from "../../../../slices/cart/cartSlice";
+import { decreaseStock } from "../../../../slices/products/productsSlice";
+import testImage from "../../../../assets/products/test1.jpg";
 
 import "./ProductCard.scss";
-import { decreaseStock } from "../../../../slices/products/productsSlice";
 
 interface ProductCardProps {
     product: Product;
@@ -14,7 +15,7 @@ export const ProductCard = ({
     product,
 }: ProductCardProps) => {
     const dispatch = useDispatch();
-    const { name, description, price, stock} = product;
+    const { name, price, stock } = product;
 
     const handleAddToCart = () => {
         if (stock > 0) {
@@ -26,14 +27,19 @@ export const ProductCard = ({
     };
 
     return (
-        <div className="card">
-            <h2>{name}</h2>
-            <p>{description}</p>
-            <p className="price">COP {price.toLocaleString()}</p>
-            <p>Stock: {stock}</p>
-            <button onClick={handleAddToCart } disabled={stock === 0}>
-                + Agregar al carrito
-            </button>
-        </div>
+        <article className="product-card">
+            <img
+                src={testImage}
+                alt={name}
+                className="product-image" />
+            <div className="product-title">{name}</div>
+            <p className="product-price">COP {price.toLocaleString()}</p>
+            <div className="product-button">
+                <p>Stock: {stock}</p>
+                <button onClick={handleAddToCart} disabled={stock === 0}>
+                    +🛒
+                </button>
+            </div>
+        </article>
     );
 };

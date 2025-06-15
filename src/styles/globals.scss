@@ -1,4 +1,4 @@
-@import './media';
+@use './media' as media;
 
 $primary-color: #FF6F61;
 $secondary-color: #FFD166;
@@ -28,17 +28,17 @@ html, body, #root {
   font-size: 1rem;
   background-color: $background-color;
 
-  @include respond-to(tablet) {
+  @include media.respond-to(tablet) {
     padding: 2rem;
     font-size: 1.1rem;
   }
 
-  @include respond-to(laptop) {
+  @include media.respond-to(laptop) {
     max-width: 960px;
     margin: 0 auto;
   }
 
-  @include respond-to(desktop) {
+  @include media.respond-to(desktop) {
     max-width: 1200px;
   }
 }

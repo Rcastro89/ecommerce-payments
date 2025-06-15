@@ -1,10 +1,10 @@
 @use '../../../styles/globals.scss' as v;
 
-.product-page {
+.cart-page {
   padding: 1rem;
   width: 100%;
 
-  .product-page-title {
+  .cart-page-title {
     padding: 1rem 0;
     font-size: 2rem;
     color: #333;
@@ -16,10 +16,16 @@
     background-color: v.$background-color;
   }
 
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    min-width: 0;
+  .payment-options {
+    margin-top: 2rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type='radio'] {
+      margin-right: 0.5rem;
+    }
   }
 }

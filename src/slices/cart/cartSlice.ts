@@ -1,10 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Product } from '../../types/product';
-
-interface CartItem extends Product {
-  quantity: number;
-}
+import type { CartItem } from '../../types/cartItem';
 
 interface CartState {
   items: CartItem[];
