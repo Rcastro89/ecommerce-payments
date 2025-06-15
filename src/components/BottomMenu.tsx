@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import CartIcon from "./CartIcon";
+
 import "./BottomMenu.scss";
 
 const BottomMenu = () => {
@@ -8,7 +10,7 @@ const BottomMenu = () => {
         🧸 Productos
       </NavLink>
       <NavLink to="/cart" className="menu-item">
-        🛒 Carrito
+        <CartIcon />
       </NavLink>
     </nav>
   );
