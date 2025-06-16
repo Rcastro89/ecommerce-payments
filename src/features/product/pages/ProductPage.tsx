@@ -9,7 +9,7 @@ const ProductPage = () => {
 
     return (
         <main className="product-page">
-            <header className="product-page-title">🧸 La Jugueteria</header>
+            <header className="product-page-title">💻 TecStore</header>
             <section className="products-grid">
                 {productsItems.map((p) => (
                     <ProductCard

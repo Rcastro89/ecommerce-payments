@@ -9,10 +9,10 @@
         position: relative;
         width: 100%;
         padding: 1rem;
-        border: 1px solid #ddd;
+        border: 1px solid v.$color4;
         border-radius: 8px;
         margin-bottom: 1rem;
-        background-color: v.$card-background;
+        background-color: v.$color-white;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
@@ -52,7 +52,7 @@
             }
 
             .cart-item-price {
-                color: v.$primary-color;
+                color: v.$color3;
                 font-weight: bold;
                 margin-bottom: 0.5rem;
             }

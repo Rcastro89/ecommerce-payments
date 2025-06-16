@@ -1,13 +1,13 @@
 @use './media' as media;
 
-$primary-color: #FF6F61;
-$secondary-color: #FFD166;
-$background-color: #FFF8F0;
-$card-background: #E0F7FA;
-$accent-blue: #6EC1E4;
-$success-color: #06D6A0;
+$color1: #2b2726;
+$color2: #0a516d;
+$color3: #018790;
+$color4: #7dad93;
+$color5: #bacca4;
+$color-white: #ffffff;
+$color-text: #2b2726;
 
-$text-color: #333;
 $border-radius: 12px;
 $shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
 
@@ -17,16 +17,18 @@ $shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
   padding: 0;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   font-family: sans-serif;
-  background-color: $background-color;
+  background-color: $color4;
 }
 
 .page-container {
   padding: 1rem;
   font-size: 1rem;
-  background-color: $background-color;
+  background-color: $color4;
 
   @include media.respond-to(tablet) {
     padding: 2rem;

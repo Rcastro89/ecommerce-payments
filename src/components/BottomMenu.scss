@@ -5,20 +5,23 @@
     justify-content: space-around;
     align-items: center;
     padding: 0.75rem 1rem;
-    background-color: #ffffff;
-    border-top: 1px solid #ddd;
     position: sticky;
     bottom: 0;
     z-index: 10;
+    background: linear-gradient(to top,
+        #093d53 0%,
+        v.$color2 60%,
+        #2c7c90 100%
+      );
 }
 
 .menu-item {
     font-size: 1rem;
-    color: #555;
+    color: v.$color5;
     text-decoration: none;
 
     &.active {
-        color: v.$primary-color;
+        color: v.$color-white;
         font-weight: bold;
     }
 }

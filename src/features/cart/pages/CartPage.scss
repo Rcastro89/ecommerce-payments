@@ -1,7 +1,6 @@
 @use '../../../styles/globals.scss' as v;
 
 .cart-page {
-  padding: 1rem;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -9,29 +8,31 @@
   overflow: hidden;
 
   .cart-page-title {
-    padding: 1rem 0;
+    padding: 1rem;
     font-size: 2rem;
-    color: #333;
+    color: v.$color-white;
     font-weight: bold;
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: 10;
-    background-color: v.$background-color;
     flex-shrink: 0;
+    background: linear-gradient(to bottom,
+        #093d53 0%,
+        v.$color2 60%,
+        #2c7c90 100%
+      );
   }
 
   .cart-page-content {
     flex: 1 1 auto;
     overflow-y: auto;
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   .cart-footer {
     flex-shrink: 0;
     padding: 1rem;
-    background-color: #f8f8f8;
-    border-top: 1px solid #ddd;
+    background-color: v.$color1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -41,15 +42,17 @@
       font-weight: bold;
       display: flex;
       flex-direction: row;
+      color: v.$color-white;
 
-      p {
+      span {
         margin-left: .5rem;
-        color: v.$primary-color;
+        color: v.$color5;
       }
     }
 
     .cart-footer-payment-button {
-      background-color: v.$secondary-color;
+      background-color: v.$color3;
+      color: v.$color-white;
       border: none;
       width: 40%;
       border-radius: 16px;

@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { CartCard } from '../components/CartCard';
 import { useCart } from '../hooks/useCart';
 
 import './CartPage.scss';
+import CreditCardModal from '../components/CreditCardModal';
 
 const CartPage = () => {
+    const [showCreditCardModal, setShowCreditCardModal] = useState(false);
     const { cartItems, totalPayment, handleDeleteToCart} = useCart();
 
     return (
@@ -27,16 +30,19 @@ const CartPage = () => {
                         Total de productos: {cartItems.reduce((total, item) => total + item.quantity, 0)}
                     </p>
                     <p className="cart-footer-text">
-                        Total a pagar: <p>${totalPayment.toLocaleString()}</p>
+                        Total a pagar: <span>${totalPayment.toLocaleString()}</span>
                     </p>
                 </section>
                 <button
                     className='cart-footer-payment-button'
-                    onClick={() => {}}
+                    onClick={() => {setShowCreditCardModal(true)}}
                 >
                     Pagar con tarjeta de crédito
                 </button>
             </footer>
+            {showCreditCardModal && (
+                <CreditCardModal onClose={() => {setShowCreditCardModal(false)}}/>
+            )}
         </main>
     );
 };
