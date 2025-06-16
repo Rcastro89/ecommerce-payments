@@ -4,22 +4,26 @@ import { useCart } from '../hooks/useCart';
 
 import './CartPage.scss';
 import CreditCardModal from '../components/CreditCardModal';
+import { useProductCart } from '../../../hooks/useProductCart';
 
 const CartPage = () => {
     const [showCreditCardModal, setShowCreditCardModal] = useState(false);
-    const { cartItems, totalPayment, handleDeleteToCart} = useCart();
+    const { cartItemsList, totalPayment, handleDeleteToCart, handleDeleteOneItem} = useCart();
+    const { handleAddToCart } = useProductCart();
 
     return (
         <main className="cart-page">
             <header className="cart-page-title">🛒 Tu Carrito</header>
 
             <section className="cart-page-content">
-                {cartItems.length === 0 ? (
+                {cartItemsList.length === 0 ? (
                     <p>No tienes productos en el carrito.</p>
                 ) : (
                     <CartCard
-                        cartItems={cartItems}
-                        deleteItem={handleDeleteToCart}
+                        cartItems={cartItemsList}
+                        deleteAllItem={handleDeleteToCart}
+                        deleteOneItem={handleDeleteOneItem}
+                        addOneItem={handleAddToCart}
                     />
                 )}
             </section>
@@ -27,7 +31,7 @@ const CartPage = () => {
             <footer className="cart-footer">
                 <section>
                     <p className="cart-footer-text">
-                        Total de productos: {cartItems.reduce((total, item) => total + item.quantity, 0)}
+                        Total de productos: {cartItemsList.reduce((total, item) => total + item.quantity, 0)}
                     </p>
                     <p className="cart-footer-text">
                         Total a pagar: <span>${totalPayment.toLocaleString()}</span>

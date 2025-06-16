@@ -1,26 +1,13 @@
-import { useDispatch } from "react-redux";
 import type { Product } from "../../../types/product";
 import { useEffect, useRef, useState } from "react";
-import { addToCart } from "../../../slices/cart/cartSlice";
-import { decreaseStock } from "../../../slices/products/productsSlice";
 
 export const useProducts = (product: Product) => {
-    const dispatch = useDispatch();
     const { name, price, stock, description } = product;
 
     const [showTooltip, setShowTooltip] = useState(false);
     const cardRef = useRef<HTMLElement>(null);
     const isTouchDevice = typeof window !== "undefined" &&
         ("ontouchstart" in window || navigator.maxTouchPoints > 0);
-
-    const handleAddToCart = () => {
-        if (stock > 0) {
-            dispatch(addToCart(product));
-            dispatch(decreaseStock(product.idProduct));
-        } else {
-            alert("Producto agotado");
-        }
-    };
 
     const handleMouseEnter = () => {
         if (!isTouchDevice) setShowTooltip(true);
@@ -67,7 +54,6 @@ export const useProducts = (product: Product) => {
         handleMouseEnter,
         handleMouseLeave,
         handleTouchStart,
-        handleAddToCart,
         name,
         price,
         stock,

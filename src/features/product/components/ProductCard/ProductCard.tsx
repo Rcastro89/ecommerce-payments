@@ -3,24 +3,26 @@ import testImage from "../../../../assets/products/test1.jpg";
 import { useProducts } from "../../hooks/useProducts";
 
 import "./ProductCard.scss";
+import { useProductCart } from "../../../../hooks/useProductCart";
 
 interface ProductCardProps {
     product: Product;
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-    const { 
+    const {
         cardRef,
         showTooltip,
         handleMouseEnter,
         handleMouseLeave,
         handleTouchStart,
-        handleAddToCart,
         name,
         price,
         stock,
         description
     } = useProducts(product);
+
+    const { handleAddToCart } = useProductCart();
 
     return (
         <article
@@ -42,7 +44,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
                 <div className="product-button">
                     <p>Stock: {stock}</p>
-                    <button onClick={handleAddToCart} disabled={stock === 0}>
+                    <button onClick={() => handleAddToCart(product)} disabled={stock === 0}>
                         +🛒
                     </button>
                 </div>

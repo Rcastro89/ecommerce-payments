@@ -6,10 +6,12 @@ import { calculateTotalForProduct } from "../utils/cartUtils";
 
 interface CartCardProps {
     cartItems: CartItem[];
-    deleteItem: (product: CartItem) => void;
+    deleteAllItem: (product: CartItem) => void;
+    deleteOneItem: (product: CartItem) => void;
+    addOneItem: (product: CartItem) => void;
 }
 
-export const CartCard = ({ cartItems, deleteItem }: CartCardProps) => {
+export const CartCard = ({ cartItems, deleteAllItem, deleteOneItem, addOneItem }: CartCardProps) => {
     return (
         <ul className="cart-items">
             {cartItems.map((item) => (
@@ -23,10 +25,13 @@ export const CartCard = ({ cartItems, deleteItem }: CartCardProps) => {
                         <strong className="cart-item-title">{item.name}</strong>
                         <section>
                             <p className="cart-item-price">Precio: ${calculateTotalForProduct(item.price, item.quantity).toLocaleString()}</p>
-                            <p>Cantidad: {item.quantity}</p>
+                            <p>Cantidad: {item.quantity}
+                                <button className="cart-item-quantity-button" onClick={() => addOneItem(item)}>➕</button>
+                                <button className="cart-item-quantity-button" onClick={() => deleteOneItem(item)}>➖</button>
+                            </p>
                         </section>
                     </div>
-                    <button className="cart-trash" onClick={() => deleteItem(item)}>🗑️</button>
+                    <button className="cart-trash" onClick={() => deleteAllItem(item)}>🗑️</button>
                 </li>
             ))}
         </ul>
