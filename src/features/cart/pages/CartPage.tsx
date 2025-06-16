@@ -1,67 +1,63 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selecTotalItems } from '../../../slices/cart/selectors';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import './CartPage.scss';
+import { selecTotalItems } from '../../../slices/cart/selectors';
 import { CartCard } from '../components/CartCard';
-import { decreaseStock, increaseStock } from '../../../slices/products/productsSlice';
+import { increaseStock } from '../../../slices/products/productsSlice';
 import type { CartItem } from '../../../types/cartItem';
 import { removeFromCart } from '../../../slices/cart/cartSlice';
+
+import './CartPage.scss';
 
 const CartPage = () => {
     const cartItems = useSelector(selecTotalItems);
     const dispatch = useDispatch();
-    const [paymentType, setPaymentType] = useState<'efectivo' | 'tarjeta'>('efectivo');
+    const [totalPayment, setTotalPayment] = useState<number>(0);
 
-    const handlePaymentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPaymentType(event.target.value as 'efectivo' | 'tarjeta');
-    };
 
     const handleDeleteToCart = (product: CartItem) => {
-            dispatch(removeFromCart(product.idProduct));
-            for (let i = 0; i < product.quantity; i++){
-                dispatch(increaseStock(product.idProduct));
-            }
-        };
+        dispatch(removeFromCart(product.idProduct));
+        for (let i = 0; i < product.quantity; i++) {
+            dispatch(increaseStock(product.idProduct));
+        }
+    };
+
+    useEffect(() => {
+        const total = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        setTotalPayment(total);
+    }, [cartItems]);
 
     return (
         <main className="cart-page">
             <header className="cart-page-title">🛒 Tu Carrito</header>
 
-            {cartItems.length === 0 ? (
-                <p>No tienes productos en el carrito.</p>
-            ) : (
-                <CartCard 
-                    cartItems={cartItems} 
-                    deleteItem={handleDeleteToCart}
+            <section className="cart-page-content">
+                {cartItems.length === 0 ? (
+                    <p>No tienes productos en el carrito.</p>
+                ) : (
+                    <CartCard
+                        cartItems={cartItems}
+                        deleteItem={handleDeleteToCart}
                     />
-            )}
+                )}
+            </section>
 
-            <hr />
-
-            <div className="payment-options">
-                <h3>Selecciona el método de pago:</h3>
-                <label>
-                    <input
-                        type="radio"
-                        name="paymentType"
-                        value="efectivo"
-                        checked={paymentType === 'efectivo'}
-                        onChange={handlePaymentChange}
-                    />{" "}
-                    Efectivo
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        name="paymentType"
-                        value="tarjeta"
-                        checked={paymentType === 'tarjeta'}
-                        onChange={handlePaymentChange}
-                    />{" "}
-                    Tarjeta de crédito
-                </label>
-            </div>
+            <footer className="cart-footer">
+                <section>
+                    <p className="cart-footer-text">
+                        Total de productos: {cartItems.reduce((total, item) => total + item.quantity, 0)}
+                    </p>
+                    <p className="cart-footer-text">
+                        Total a pagar: <p>${totalPayment.toLocaleString()}</p>
+                    </p>
+                </section>
+                <button
+                    className='cart-footer-payment-button'
+                    onClick={() => {}}
+                >
+                    Pagar con tarjeta de crédito
+                </button>
+            </footer>
         </main>
     );
 };
