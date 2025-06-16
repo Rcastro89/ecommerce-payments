@@ -1,22 +1,55 @@
 @use '../../../../styles/globals.scss' as v;
 
 .product-card {
-  border: 1px solid v.$secondary-color;
-  border-radius: v.$border-radius;
-  box-shadow: v.$shadow-soft;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: v.$card-background;
-  transition: transform 0.2s;
   height: 30vh;
   width: 100%;
   min-width: 0;
+  position: relative;
 
-  &:hover {
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: v.$card-background;
+    padding: 1rem;
+    border-radius: v.$border-radius;
+    box-shadow: v.$shadow-soft;
+    border: 1px solid v.$secondary-color;
+    transition: transform 0.2s;
+    width: 100%;
+    height: 30vh;
+  }
+
+  &:hover .card-content {
     transform: scale(1.02);
     border-color: v.$primary-color;
+  }
+
+  .product-tooltip {
+    position: absolute;
+    top: 30vh;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    pointer-events: none;
+    font-size: 0.9rem;
+    width: 100%;
+
+    strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    p {
+      margin: 0;
+    }
   }
 
   .product-title {
@@ -26,6 +59,10 @@
     min-width: 0;
     margin-top: 0.5rem;
     height: 15%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
   }
 
   .product-image {
