@@ -30,11 +30,10 @@ const CreditCardModal = ({ onClose }: Props) => {
                             type="text"
                             label="Número de tarjeta"
                             maxLength={19}
-                            errorMessage={formErrors.cardNumber}
                         >
                             {cardType !== 'unknown' && (
                                 <img
-                                    src={`/assets/${cardType}.png`}
+                                    src={`/assets/cardIcons/${cardType}.png`}
                                     alt={`Logo ${cardType}`}
                                     className="card-logo"
                                 />
@@ -51,7 +50,6 @@ const CreditCardModal = ({ onClose }: Props) => {
                                 label="Expiración"
                                 inputMode='text'
                                 maxLength={5}
-                                errorMessage={formErrors.expiry}
                             />
                             < InputGroup
                                 nameInput="cvv"
@@ -61,7 +59,6 @@ const CreditCardModal = ({ onClose }: Props) => {
                                 type="text"
                                 maxLength={4}
                                 label="CVV"
-                                errorMessage={formErrors.cvv}
                             />
                         </div>
 
@@ -72,7 +69,6 @@ const CreditCardModal = ({ onClose }: Props) => {
                             type="text"
                             maxLength={30}
                             label="Nombre del titular"
-                            errorMessage={formErrors.cardHolder}
                         />
                     </fieldset>
 
@@ -85,7 +81,6 @@ const CreditCardModal = ({ onClose }: Props) => {
                             onChange={handleChange}
                             type="text"
                             label="Dirección"
-                            errorMessage={formErrors.address}
                         />
                     </fieldset>
                 </form>

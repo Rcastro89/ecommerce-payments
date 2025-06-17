@@ -9,7 +9,6 @@ interface Props {
     required?: boolean;
     type?: 'text' | 'password' | 'email' | 'number';
     children?: React.ReactNode; // para insertar nodos como íconos, etc.
-    errorMessage?: string;
     label?: string;
     maxLength?: number;
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -25,7 +24,6 @@ export const InputGroup = ({
     required = false, 
     type,
     children,
-    errorMessage = '',
     label,
     maxLength,
  }: Props) => {
@@ -44,10 +42,6 @@ export const InputGroup = ({
                 inputMode={inputMode ?? 'text'}
             />
             {children}
-
-            {/* {errorMessage && (
-                <span className="error-message">{errorMessage}</span>
-            )} */}
         </div>
     )
 }
