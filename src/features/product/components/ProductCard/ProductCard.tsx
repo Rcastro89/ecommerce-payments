@@ -44,7 +44,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
                 <div className="product-button">
                     <p>Stock: {stock}</p>
-                    <button onClick={() => handleAddToCart(product)} disabled={stock === 0}>
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleAddToCart(product)
+                        }}
+                        onTouchStart={(e) => e.stopPropagation()}
+                        disabled={stock === 0}>
                         +🛒
                     </button>
                 </div>

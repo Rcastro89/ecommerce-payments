@@ -1,0 +1,40 @@
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    position: relative;
+    width: 100%;
+
+    label {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    input,
+    textarea {
+        padding: 0.6rem 0.8rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        width: 100%;
+
+        &:focus {
+            border-color: #0077cc;
+        }
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 60px;
+    }
+
+    .card-logo {
+        position: absolute;
+        right: 10px;
+        top: 36px;
+        width: 40px;
+        height: auto;
+    }
+}
