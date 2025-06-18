@@ -3,11 +3,13 @@ import { useCart } from "../hooks/useCart";
 interface Props {
     onClose: () => void;
     goBack: () => void;
+    sendPayment: () => void;
 }
 
 export const PaymentSummary = ({ 
     onClose, 
     goBack,
+    sendPayment
  }: Props) => {
     const { subtotalPayment, baseFee, deliveryFee, totalPayment, totalItems} = useCart();
 
@@ -30,8 +32,8 @@ export const PaymentSummary = ({
             </div>
             <footer className="modal-buttons">
                 <button type="button" onClick={() => {
-                    alert('✅ Pago procesado correctamente.');
-                    onClose();
+                    sendPayment();
+                    //onClose();
                 }}>Pagar ahora</button>
 
                 <button type="button" onClick={goBack}>Volver</button>

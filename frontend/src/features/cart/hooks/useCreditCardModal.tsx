@@ -67,7 +67,7 @@ export const useCreditCardModal = (onClose: () => void) => {
                 cardHolder: !formData.cardHolder ? '* Nombre del titular es requerido' : '',
                 address: !formData.address ? '* Dirección es requerida' : '',
             });
-            return;
+           // return;
         }
 
         setShowSummary(true);

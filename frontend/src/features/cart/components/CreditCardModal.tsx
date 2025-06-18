@@ -4,6 +4,7 @@ import { Backdrop } from '../../../components/Backdrop';
 import { PaymentSummary } from './PaymentSummary';
 
 import './CreditCardModal.scss';
+import { useCheckout } from '../hooks/useCheckout';
 
 interface Props {
     onClose: () => void;
@@ -19,6 +20,8 @@ const CreditCardModal = ({ onClose }: Props) => {
         handleChange, 
         setShowSummary 
     } = useCreditCardModal(onClose);
+
+    const { checkout, loading, error, success } = useCheckout();
 
     return (
         <Backdrop>
@@ -114,6 +117,7 @@ const CreditCardModal = ({ onClose }: Props) => {
                             goBack={() => {
                                 setShowSummary(false); // Reset state to go back to the form
                             }}
+                            sendPayment={checkout}
                         />
                     )}
                 </article>
