@@ -10,6 +10,7 @@ export interface FormCardData {
 }
 
 export const useCreditCardModal = (onClose: () => void) => {
+    const [showSummary, setShowSummary] = useState(false);
     const [formData, setFormData] = useState<FormCardData>({
         cardNumber: '',
         expiry: '',
@@ -68,15 +69,22 @@ export const useCreditCardModal = (onClose: () => void) => {
             });
             return;
         }
-        alert('✅ Pago procesado correctamente.');
-        onClose();
+
+        setShowSummary(true);
     };
+
+    const handleClose = () => {
+        onClose();
+    }
 
     return {
         formData,
         formErrors,
         cardType,
+        showSummary,
         handleChange,
         handleSubmit,
+        handleClose,
+        setShowSummary
     }
 }

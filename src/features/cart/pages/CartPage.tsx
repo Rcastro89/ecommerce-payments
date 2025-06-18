@@ -8,7 +8,7 @@ import { useProductCart } from '../../../hooks/useProductCart';
 
 const CartPage = () => {
     const [showCreditCardModal, setShowCreditCardModal] = useState(false);
-    const { cartItemsList, totalPayment, handleDeleteToCart, handleDeleteOneItem} = useCart();
+    const { cartItemsList, subtotalPayment, handleDeleteToCart, handleDeleteOneItem} = useCart();
     const { handleAddToCart } = useProductCart();
 
     return (
@@ -34,7 +34,7 @@ const CartPage = () => {
                         Total de productos: {cartItemsList.reduce((total, item) => total + item.quantity, 0)}
                     </p>
                     <p className="cart-footer-text">
-                        Total a pagar: <span>${totalPayment.toLocaleString()}</span>
+                        Total a pagar: <span>${subtotalPayment.toLocaleString()}</span>
                     </p>
                 </section>
                 <button

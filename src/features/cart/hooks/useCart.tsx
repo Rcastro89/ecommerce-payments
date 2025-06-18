@@ -9,8 +9,12 @@ import { increaseStock } from "../../../slices/products/productsSlice";
 export const useCart = () => {
     const cartItems = useSelector(selecTotalItems);
     const dispatch = useDispatch();
-    const [totalPayment, setTotalPayment] = useState<number>(0);
+    const [subtotalPayment, setSubtotalPayment] = useState<number>(0);
+    const [totalPayment, settotalPayment] = useState<number>(0);
+    const [totalItems, setTotalItems] = useState<number>(0);
     const [cartItemsList, setCartItemsList] = useState<CartItem[]>([]);
+    const baseFee = 5000; 
+    const deliveryFee = 2000;
 
     const handleDeleteToCart = (product: CartItem) => {
         dispatch(removeFromCart(product.idProduct));
@@ -26,13 +30,20 @@ export const useCart = () => {
 
     useEffect(() => {
         const total = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-        setTotalPayment(total);
+        const calculeTotalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+        setSubtotalPayment(total);
         setCartItemsList(cartItems);
+        settotalPayment(total + baseFee + deliveryFee);
+        setTotalItems(calculeTotalItems);
     }, [cartItems]);
 
     return {
         cartItemsList,
+        subtotalPayment,
         totalPayment,
+        baseFee,
+        deliveryFee,
+        totalItems,
         handleDeleteToCart,
         handleDeleteOneItem
     }

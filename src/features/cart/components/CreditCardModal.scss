@@ -27,7 +27,8 @@
             flex-shrink: 0;
         }
 
-        form {
+        form,
+        .body-data {
             flex: 1 1 auto;
             display: flex;
             flex-direction: column;
@@ -54,6 +55,31 @@
 
                 .input-group {
                     flex: 1;
+                }
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 1rem;
+
+                li {
+                    margin-bottom: 0.5rem;
+                    font-size: 1.2rem;
+                    color: #555;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+
+                .subtotal-li {
+                    margin-bottom: 3rem;
+                }
+
+                .total-li {
+                    margin-top: 3rem;
+                    font-weight: bold;
+                    color: #000;
                 }
             }
         }
