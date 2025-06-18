@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { selecTotalItems } from "../../../slices/cart/selectors";
+import { removeFromCart, removeOneFromCart } from "../slices/cartSlice";
+import { selecTotalItems } from "../slices/selectors";
 import type { CartItem } from "../../../types/cartItem";
-import { removeFromCart, removeOneFromCart } from "../../../slices/cart/cartSlice";
-import { increaseStock } from "../../../slices/products/productsSlice";
+import { increaseStock } from "../../product/slice/productsSlice";
 
 export const useCart = () => {
     const cartItems = useSelector(selecTotalItems);

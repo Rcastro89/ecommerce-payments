@@ -1,6 +1,6 @@
 import { ProductCard } from "../components/ProductCard/ProductCard";
 import { useSelector } from "react-redux";
-import { getAllProducts } from "../../../slices/products/selectors";
+import { getAllProducts } from "../slice/selectors";
 
 import "./ProductPage.scss";
 

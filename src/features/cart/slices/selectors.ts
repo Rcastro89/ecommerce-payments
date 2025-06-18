@@ -1,4 +1,4 @@
-import type { RootState } from '../../app/store';
+import type { RootState } from "../../../app/store";
 
 export const selectCartTotalItems = (state: RootState) =>
   state.cart.items.reduce((total, item) => total + item.quantity, 0);

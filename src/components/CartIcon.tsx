@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectCartTotalItems } from '../slices/cart/selectors';
-
+import { selectCartTotalItems } from '../features/cart/slices/selectors';
 import './CartIcon.scss';
 import "./BottomMenu.scss";
 

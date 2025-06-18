@@ -1,6 +1,6 @@
 import { InputGroup } from './InputGroup';
 import { useCreditCardModal, type FormCardData } from '../hooks/useCreditCardModal';
-import { Backdrop } from '../../../components/BackDrop';
+import { Backdrop } from '../../../components/Backdrop';
 import { PaymentSummary } from './PaymentSummary';
 
 import './CreditCardModal.scss';
