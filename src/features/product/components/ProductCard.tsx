@@ -1,5 +1,5 @@
 import type { Product } from "../../../types/product";
-import testImage from "../../../../assets/products/test1.jpg";
+import testImage from "../../../assets/products/test1.jpg";
 import { useProducts } from "../hooks/useProducts";
 
 import "./ProductCard.scss";
