@@ -8,12 +8,12 @@ import { useProductCart } from '../../../hooks/useProductCart';
 
 const CartPage = () => {
     const [showCreditCardModal, setShowCreditCardModal] = useState(false);
-    const { cartItemsList, subtotalPayment, handleDeleteToCart, handleDeleteOneItem} = useCart();
+    const { cartItemsList, subtotalPayment, handleDeleteToCart, handleDeleteOneItem, handleDeleteToCartAll} = useCart();
     const { handleAddToCart } = useProductCart();
 
     return (
         <main className="cart-page">
-            <header className="cart-page-title">🛒 Tu Carrito</header>
+            <header className="cart-page-title"><span>🛒 Tu Carrito</span><button onClick={handleDeleteToCartAll}>🗑️</button></header>
 
             <section className="cart-page-content">
                 {cartItemsList.length === 0 ? (

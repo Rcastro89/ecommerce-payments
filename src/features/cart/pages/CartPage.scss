@@ -8,6 +8,9 @@
   overflow: hidden;
 
   .cart-page-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 1rem;
     font-size: 2rem;
     color: v.$color-white;
@@ -21,6 +24,13 @@
         v.$color2 60%,
         #2c7c90 100%
       );
+
+      button {
+        background-color: unset;
+        box-shadow: none;
+        border: none;
+        font-size: 2rem;
+      }
   }
 
   .cart-page-content {

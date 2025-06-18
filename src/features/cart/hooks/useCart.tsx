@@ -5,6 +5,7 @@ import { removeFromCart, removeOneFromCart } from "../slices/cartSlice";
 import { selecTotalItems } from "../slices/selectors";
 import type { CartItem } from "../../../types/cartItem";
 import { increaseStock } from "../../product/slices/productsSlice";
+import { useProductCart } from "../../../hooks/useProductCart";
 
 export const useCart = () => {
     const cartItems = useSelector(selecTotalItems);
@@ -16,12 +17,18 @@ export const useCart = () => {
     const baseFee = 5000; 
     const deliveryFee = 2000;
 
+    const { handleClearAllProductCart } = useProductCart();
+
     const handleDeleteToCart = (product: CartItem) => {
         dispatch(removeFromCart(product.idProduct));
         for (let i = 0; i < product.quantity; i++) {
             dispatch(increaseStock(product.idProduct));
         }
     };
+
+    const handleDeleteToCartAll = () => {
+        handleClearAllProductCart();
+    }
 
     const handleDeleteOneItem = (product: CartItem) => {
         dispatch(removeOneFromCart(product.idProduct));
@@ -45,6 +52,7 @@ export const useCart = () => {
         deliveryFee,
         totalItems,
         handleDeleteToCart,
-        handleDeleteOneItem
+        handleDeleteOneItem,
+        handleDeleteToCartAll
     }
 }
