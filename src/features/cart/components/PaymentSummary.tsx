@@ -11,10 +11,6 @@ export const PaymentSummary = ({
  }: Props) => {
     const { subtotalPayment, baseFee, deliveryFee, totalPayment, totalItems} = useCart();
 
-    console.log('PaymentSummary rendered',
-        { subtotalPayment, baseFee, deliveryFee, totalPayment, totalItems }
-    );
-
     return (
         <>
             <header>
