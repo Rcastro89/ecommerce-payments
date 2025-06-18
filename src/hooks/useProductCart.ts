@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { Product } from "../types/product";
 import { addToCart } from "../features/cart/slices/cartSlice";
-import { decreaseStock } from "../features/product/slice/productsSlice";
+import { decreaseStock } from "../features/product/slices/productsSlice";
 import type { RootState } from "../app/store";
 
 export const useProductCart = () => {

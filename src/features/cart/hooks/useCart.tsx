@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { removeFromCart, removeOneFromCart } from "../slices/cartSlice";
 import { selecTotalItems } from "../slices/selectors";
 import type { CartItem } from "../../../types/cartItem";
-import { increaseStock } from "../../product/slice/productsSlice";
+import { increaseStock } from "../../product/slices/productsSlice";
 
 export const useCart = () => {
     const cartItems = useSelector(selecTotalItems);
