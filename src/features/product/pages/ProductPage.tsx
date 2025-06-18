@@ -1,4 +1,4 @@
-import { ProductCard } from "../components/ProductCard/ProductCard";
+import { ProductCard } from "../components/ProductCard";
 import { useSelector } from "react-redux";
 import { getAllProducts } from "../slices/selectors";
 

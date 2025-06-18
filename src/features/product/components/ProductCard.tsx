@@ -1,9 +1,9 @@
-import type { Product } from "../../../../types/product";
+import type { Product } from "../../../types/product";
 import testImage from "../../../../assets/products/test1.jpg";
-import { useProducts } from "../../hooks/useProducts";
+import { useProducts } from "../hooks/useProducts";
 
 import "./ProductCard.scss";
-import { useProductCart } from "../../../../hooks/useProductCart";
+import { useProductCart } from "../../../hooks/useProductCart";
 
 interface ProductCardProps {
     product: Product;
