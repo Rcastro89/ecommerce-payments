@@ -1,15 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Product } from '../../../types/product';
-import { products } from '../data/products';
+import { getProducts } from '../services/productService';
 
 interface ProductsState {
   items: Product[];
+  isLoading: boolean;
+  isLoaded: boolean;
+  error: string | null;
 }
 
 const initialState: ProductsState = {
-  items: products
+  items: [],
+  isLoading: false,
+  isLoaded: false,
+  error: null,
 };
+
+export const fetchProducts = createAsyncThunk(
+  'product/fetchProducts',
+  async (_, thunkAPI) => {
+    try {
+      const products = await getProducts();
+      return products;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(`Error al cargar productos ${(error)}`);
+    }
+  }
+);
 
 const productSlice = createSlice({
   name: 'product',
@@ -30,9 +48,26 @@ const productSlice = createSlice({
     },
 
     resetProducts(state) {
-      state.items = [...products];
+      state.isLoaded = false;
     }
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
+        state.isLoading = false;
+        state.isLoaded = true;
+        state.items = action.payload;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isLoaded = false;
+        state.error = action.payload as string;
+      });
+  }
 });
 
 export const { decreaseStock, increaseStock, resetProducts } = productSlice.actions;

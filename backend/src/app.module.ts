@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ProductController } from './infrastructure/product/controllers/product.controller';
+import { InMemoryProductRepository } from './infrastructure/product/repositories/in-memory-product.repository';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+  ],
+  controllers: [ProductController],
+  providers: [InMemoryProductRepository],
 })
 export class AppModule {}

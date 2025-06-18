@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import { getAllProducts } from "../slices/selectors";
 
 import "./ProductPage.scss";
+import { useFetchProducts } from "../hooks/useFetchProducts";
 
 const ProductPage = () => {
-    const productsItems = useSelector(getAllProducts);
+    const { isLoading, productsItems, error } = useFetchProducts();   
 
+    if (isLoading) return <p>Cargando productos...</p>;
+    if (error) return <p>Error: {error}</p>;
     return (
         <main className="product-page">
             <header className="product-page-title">💻 TecStore</header>
