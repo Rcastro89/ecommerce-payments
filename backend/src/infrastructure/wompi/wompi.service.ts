@@ -40,7 +40,7 @@ export class WompiService implements IWompiService {
                     },
                 }
             );
-            return response.data?.data?.id || null;
+            return response.data?.data?.id ?? null;
         } catch (error) {
             console.error('[WompiService] Error tokenizing card', error);
             return null;
