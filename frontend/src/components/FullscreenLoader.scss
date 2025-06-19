@@ -1,0 +1,54 @@
+.fullscreen-loader {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: all 0.3s ease;
+
+  .spinner {
+    width: 4rem;
+    height: 4rem;
+    border: 0.4rem solid #ccc;
+    border-top: 0.4rem solid #00b894;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .checkmark,
+  .cross {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #00b894;
+    animation: pop 0.4s ease-out forwards;
+  }
+
+  &.error, .cross {
+    display: flex;
+    flex-direction: column;
+    color: #d63031;
+  }
+
+  .text-error {
+    font-size: 1rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}

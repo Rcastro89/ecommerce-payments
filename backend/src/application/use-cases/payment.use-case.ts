@@ -40,7 +40,7 @@ export class PaymentUseCase {
             // Paso 3: Crear la transacción
             const reference = uuidv4();
             const amountInCents = dto.products.reduce((total, p) => {
-                return total + (p.quantity * p.unitPrice) * 100000;
+                return total + (p.quantity * p.unitPrice) * 100;
             }, 0);
 
             const transaction = await this.wompiService.createTransaction({
@@ -65,7 +65,6 @@ export class PaymentUseCase {
             let status: string | null = 'PENDING';
 
             while (status === 'PENDING' && currentRetry < maxRetries) {
-                console.log(`estatus: ${status}, reintento: ${currentRetry}`);
                 await new Promise((resolve) => setTimeout(resolve, 2000));
                 status = await this.wompiService.getTransactionStatus(transaction.transactionId);
                 currentRetry++;

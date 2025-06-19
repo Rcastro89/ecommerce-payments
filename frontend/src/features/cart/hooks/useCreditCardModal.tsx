@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { formatCardNumber, formatExpireDate, getCardType } from "../utils/cartUtils";
-
-export interface FormCardData {
-    cardNumber: string;
-    expiry: string;
-    cvv: string;
-    cardHolder: string;
-    address: string;
-}
+import type { FormCardData } from "../../../types/cartItem";
 
 export const useCreditCardModal = (onClose: () => void) => {
     const [showSummary, setShowSummary] = useState(false);

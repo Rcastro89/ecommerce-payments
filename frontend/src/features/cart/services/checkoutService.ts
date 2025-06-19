@@ -1,25 +1,52 @@
-import type { CartItem } from "../../../types/cartItem";
+import type { CartItem, FormCardData } from "../../../types/cartItem";
 
 const API_URL = import.meta.env.VITE_API_PRODUCTS;
 
-interface CheckoutItem {
+interface ProductPayload {
     idProduct: number;
     quantity: number;
+    unitPrice: number;
 }
 
-export async function postCheckout(cartItems: CartItem[]) {
-    const checkoutItems: CheckoutItem[] = cartItems.map(item => ({
+interface CardPayload {
+    number: string
+        cvc: string,
+        exp_month: string,
+        exp_year: string,
+        card_holder: string
+}
+
+interface PaymentPayload {
+    card: CardPayload,
+    products: ProductPayload[];
+}
+
+export async function postCheckout(cartItems: CartItem[], formData: FormCardData) {
+    const cardPayload: CardPayload = {
+        number: formData.cardNumber.replace(/\s/g, ""),
+        cvc: formData.cvv,
+        exp_month: formData.expiry.slice(0, 2),
+        exp_year: formData.expiry.slice(3, 5),
+        card_holder: formData.cardHolder,
+    }
+    const checkoutItems: ProductPayload[] = cartItems.map(item => ({
         idProduct: item.idProduct,
         quantity: item.quantity,
+        unitPrice: item.price,
     }));
 
+    const payload: PaymentPayload = {
+        card: cardPayload,
+        products: checkoutItems,
+    };
+
     try {
-        const response = await fetch(`${API_URL}/checkout`, {
+        const response = await fetch(`${API_URL}/payment`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ products: checkoutItems }),
+            body: JSON.stringify(payload),
         });
 
         if (!response.ok) {
