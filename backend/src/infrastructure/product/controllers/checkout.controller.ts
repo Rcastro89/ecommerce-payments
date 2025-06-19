@@ -8,18 +8,18 @@ export class CheckoutController {
 
   @Post()
   async checkout(@Body() body: CheckoutRequestDto) {
-    const result = await this.checkoutUseCase.execute(body.products);
+    const result = await this.checkoutUseCase.execute();
 
-    if (!result.ok) {
-      return {
-        success: false,
-        errors: result.error,
-      };
-    }
+    // if (!result.ok) {
+    //   return {
+    //     success: false,
+    //     errors: result.error,
+    //   };
+    // }
 
     return {
       success: true,
-      message: result.value,
+      message: "Oki",
     };
   }
 }
