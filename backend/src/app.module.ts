@@ -3,10 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ProductController } from './infrastructure/product/controllers/product.controller';
-import { CheckoutController } from './infrastructure/product/controllers/checkout.controller';
 import { PaymentController } from './infrastructure/payment/controllers/payment.controller';
 
-import { CheckoutUseCase } from './application/use-cases/checkout.use-case';
 import { PaymentUseCase } from './application/use-cases/payment.use-case';
 
 import { WompiService } from './infrastructure/wompi/wompi.service';
@@ -34,11 +32,9 @@ import { ProductRepository } from './domain/product/product.repository';
   ],
   controllers: [
     ProductController,
-    CheckoutController,
     PaymentController,
   ],
   providers: [
-    CheckoutUseCase,
     PaymentUseCase,
     TypeOrmProductRepository,
     GetAllProductsUseCase,

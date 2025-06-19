@@ -5,6 +5,9 @@ import type { CartItem, FormCardData } from "../../../types/cartItem";
 import { postCheckout } from "../services/checkoutService";
 import { useAppSelector } from "../../../hooks/useAppSelector";
 import { selecTotalItems } from "../slices/selectors";
+import { useAppDispatch } from "../../../hooks/useAppDispatch";
+import { resetProducts } from "../../product/slices/productsSlice";
+import { clearCart } from "../slices/cartSlice";
 
 export function useCheckout() {
     const [loading, setLoading] = useState(false);
@@ -14,6 +17,7 @@ export function useCheckout() {
 
     const items: CartItem[] = useAppSelector(selecTotalItems);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     const checkout = async (formData: FormCardData) => {
         setLoading(true);
@@ -24,6 +28,8 @@ export function useCheckout() {
             const response = await postCheckout(items, formData);
             if (response?.ok) {
                 setSuccess(true);
+                dispatch(resetProducts());
+                dispatch(clearCart());
                 setTimeout(() => {navigate('/')}, 2000);
             }
             else if (response?.error) {

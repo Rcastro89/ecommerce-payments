@@ -53,7 +53,8 @@ export const useCreditCardModal = (onClose: () => void) => {
         if (formData.cardNumber.length < 19 ||
             formData.expiry.length < 5 ||
             formData.cvv.length < 3 ||
-            !formData.cardHolder) {
+            !formData.cardHolder ||
+            !formData.installments) {
             setFormErrors({
                 cardNumber: formData.cardNumber.length < 19 ? '* Número de tarjeta completo es requerido' : '',
                 expiry: formData.expiry.length < 5 ? '* Fecha de expiración es requerida' : '',
