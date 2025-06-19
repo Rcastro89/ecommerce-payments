@@ -29,6 +29,9 @@ class ProductToBuyDto {
 
   @IsNumber()
   quantity: number;
+
+  @IsNumber()
+  unitPrice: number;
 }
 
 export class PaymentRequestDto {
