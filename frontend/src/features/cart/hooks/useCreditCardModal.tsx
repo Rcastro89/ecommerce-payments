@@ -10,6 +10,7 @@ export const useCreditCardModal = (onClose: () => void) => {
         cvv: '',
         cardHolder: '',
         address: '',
+        installments: '',
     });
     const [formErrors, setFormErrors] = useState<FormCardData>({
         cardNumber: '',
@@ -17,6 +18,7 @@ export const useCreditCardModal = (onClose: () => void) => {
         cvv: '',
         cardHolder: '',
         address: '',
+        installments: '',
     });
 
     const cardType = getCardType(formData.cardNumber);
@@ -51,16 +53,15 @@ export const useCreditCardModal = (onClose: () => void) => {
         if (formData.cardNumber.length < 19 ||
             formData.expiry.length < 5 ||
             formData.cvv.length < 3 ||
-            !formData.cardHolder ||
-            !formData.address) {
+            !formData.cardHolder) {
             setFormErrors({
                 cardNumber: formData.cardNumber.length < 19 ? '* Número de tarjeta completo es requerido' : '',
                 expiry: formData.expiry.length < 5 ? '* Fecha de expiración es requerida' : '',
                 cvv: formData.cvv.length < 3 ? '* CVV es requerido' : '',
                 cardHolder: !formData.cardHolder ? '* Nombre del titular es requerido' : '',
-                address: !formData.address ? '* Dirección es requerida' : '',
+                installments: formData.installments ? '' : '* Cantidad de cuotas es requerido',
             });
-           // return;
+           return;
         }
 
         setShowSummary(true);

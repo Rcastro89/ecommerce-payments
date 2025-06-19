@@ -2,7 +2,7 @@ import type { Product } from "../../../types/product";
 import { useEffect, useRef, useState } from "react";
 
 export const useProducts = (product: Product) => {
-    const { name, price, stock, description } = product;
+    const { name, price, stock, description, imageUrl } = product;
 
     const [showTooltip, setShowTooltip] = useState(false);
     const cardRef = useRef<HTMLElement>(null);
@@ -57,6 +57,7 @@ export const useProducts = (product: Product) => {
         name,
         price,
         stock,
-        description
+        description,
+        imageUrl
     };
 }

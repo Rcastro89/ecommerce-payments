@@ -9,5 +9,8 @@ export interface FormCardData {
     expiry: string;
     cvv: string;
     cardHolder: string;
-    address: string;
+    address?: string;
+    installments: string;
+    phone?: string;
+    email?: string;
 }

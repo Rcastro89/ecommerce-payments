@@ -1,5 +1,5 @@
 import type { Product } from "../../../types/product";
-import testImage from "../../../assets/products/test1.jpg";
+import notFound from "../../../assets/products/notFound.png";
 import { useProducts } from "../hooks/useProducts";
 
 import "./ProductCard.scss";
@@ -19,11 +19,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         name,
         price,
         stock,
-        description
+        description,
+        imageUrl
     } = useProducts(product);
 
     const { handleAddToCart } = useProductCart();
 
+    console.log("ProductCard render", imageUrl);
     return (
         <article
             ref={cardRef}
@@ -34,9 +36,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         >
             <div className="card-content">
                 <img
-                    src={testImage}
+                    src={imageUrl}
                     alt={name}
                     className="product-image"
+                    onError={(e) => {
+                        const target = e.currentTarget;
+                        target.onerror = null;
+                        target.src = notFound;
+                    }}
                 />
 
                 <div className="product-title">{name}</div>

@@ -50,7 +50,7 @@ export class PaymentUseCase {
                 amountInCents,
                 reference,
                 email: 'cliente@correo.com',
-                installments: 1,
+                installments: +dto.card.installments,
             });
 
             if (!transaction) {

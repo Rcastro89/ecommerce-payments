@@ -95,19 +95,16 @@ const CreditCardModal = ({ onClose }: Props) => {
                                         maxLength={30}
                                         label="Nombre del titular"
                                     />
-                                </fieldset>
-
-                                <fieldset>
-                                    <legend>Dirección de entrega</legend>
-
                                     < InputGroup
-                                        nameInput="address"
-                                        value={formData.address}
+                                        nameInput="installments"
+                                        value={formData.installments}
                                         onChange={handleChange}
                                         type="text"
-                                        label="Dirección"
+                                        maxLength={2}
+                                        label="Cuotas"
                                     />
                                 </fieldset>
+
                                 <p>
                                     {Object.keys(formErrors).map(key => {
                                         const value = formErrors[key as keyof FormCardData];
@@ -122,11 +119,12 @@ const CreditCardModal = ({ onClose }: Props) => {
                         </>
                     ) : (
                         <PaymentSummary
-                            onClose={onClose}
                             goBack={() => {
-                                setShowSummary(false); // Reset state to go back to the form
+                                setShowSummary(false);
                             }}
                             sendPayment={() => {checkout(formData)}}
+                            formData={formData}
+                            handleChange={handleChange}
                         />
                     )}
                 </article>

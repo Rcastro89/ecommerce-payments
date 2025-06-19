@@ -21,6 +21,10 @@ class CardDetailsDto {
   @IsString()
   @IsNotEmpty()
   card_holder: string;
+
+  @IsString()
+  @IsNotEmpty()
+  installments: string;
 }
 
 class ProductToBuyDto {
@@ -34,6 +38,17 @@ class ProductToBuyDto {
   unitPrice: number;
 }
 
+class CustomerDto {
+  @IsString()
+  address: string;
+
+  @IsString()
+  phone: string;
+
+  @IsString()
+  email: string;
+}
+
 export class PaymentRequestDto {
   @ValidateNested()
   @Type(() => CardDetailsDto)
@@ -43,4 +58,8 @@ export class PaymentRequestDto {
   @ValidateNested({ each: true })
   @Type(() => ProductToBuyDto)
   products: ProductToBuyDto[];
+
+  @ValidateNested()
+  @Type(() => CustomerDto)
+  customer: CustomerDto;
 }

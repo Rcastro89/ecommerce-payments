@@ -10,24 +10,38 @@ interface ProductPayload {
 
 interface CardPayload {
     number: string
-        cvc: string,
-        exp_month: string,
-        exp_year: string,
-        card_holder: string
+    cvc: string,
+    exp_month: string,
+    exp_year: string,
+    card_holder: string
+    installments: string;
+}
+
+interface CustomerPayload {
+    address?: string;
+    phone?: string;
+    email?: string;
 }
 
 interface PaymentPayload {
     card: CardPayload,
     products: ProductPayload[];
+    customer: CustomerPayload;
 }
 
 export async function postCheckout(cartItems: CartItem[], formData: FormCardData) {
+    const customerPayload: CustomerPayload = {
+        address: formData.address,
+        phone: formData.phone,
+        email: formData.email,
+    };
     const cardPayload: CardPayload = {
         number: formData.cardNumber.replace(/\s/g, ""),
         cvc: formData.cvv,
         exp_month: formData.expiry.slice(0, 2),
         exp_year: formData.expiry.slice(3, 5),
         card_holder: formData.cardHolder,
+        installments: formData.installments,
     }
     const checkoutItems: ProductPayload[] = cartItems.map(item => ({
         idProduct: item.idProduct,
@@ -38,6 +52,7 @@ export async function postCheckout(cartItems: CartItem[], formData: FormCardData
     const payload: PaymentPayload = {
         card: cardPayload,
         products: checkoutItems,
+        customer: customerPayload,
     };
 
     try {
