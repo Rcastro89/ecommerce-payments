@@ -1,10 +1,13 @@
 import { InputGroup } from './InputGroup';
-import { useCreditCardModal, type FormCardData } from '../hooks/useCreditCardModal';
+import { useCreditCardModal } from '../hooks/useCreditCardModal';
+import type { FormCardData } from '../../../types/cartItem';
 import { Backdrop } from '../../../components/Backdrop';
 import { PaymentSummary } from './PaymentSummary';
 
 import './CreditCardModal.scss';
 import { useCheckout } from '../hooks/useCheckout';
+import { FullscreenLoader } from '../../../components/FullscreenLoader';
+import { useEffect } from 'react';
 
 interface Props {
     onClose: () => void;
@@ -21,10 +24,16 @@ const CreditCardModal = ({ onClose }: Props) => {
         setShowSummary 
     } = useCreditCardModal(onClose);
 
-    const { checkout, loading, error, success } = useCheckout();
+    const { checkout, loading, status } = useCheckout();
+    useEffect(() => {
+        if (status === 'success' && !loading) {
+            onClose();
+        }
+    }, [status, loading])
 
     return (
         <Backdrop>
+            {loading && <FullscreenLoader status={status} />}
             <dialog open className="credit-card-modal" aria-modal="true">
                 <article>
                     {!showSummary ? (
@@ -117,7 +126,7 @@ const CreditCardModal = ({ onClose }: Props) => {
                             goBack={() => {
                                 setShowSummary(false); // Reset state to go back to the form
                             }}
-                            sendPayment={checkout}
+                            sendPayment={() => {checkout(formData)}}
                         />
                     )}
                 </article>
