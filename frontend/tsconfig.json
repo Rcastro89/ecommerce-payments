@@ -1,4 +1,17 @@
 {
+  "compilerOptions": {
+    "jsx": "react-jsx", // o "react" si usas React <17
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "tests"],
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

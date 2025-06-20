@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { CartItem } from '../../../types/cartItem';
 import type { Product } from '../../../types/product';
 
-interface CartState {
+export interface CartState {
   items: CartItem[];
 }
 

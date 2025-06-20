@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import type { Product } from '../../../types/product';
 import { getProducts } from '../services/productService';
 
-interface ProductsState {
+export interface ProductsState {
   items: Product[];
   isLoading: boolean;
   isLoaded: boolean;
