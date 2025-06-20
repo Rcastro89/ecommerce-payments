@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Transaction } from 'src/domain/transaction/transaction.entity';
-import { TransactionRepository } from 'src/domain/transaction/transaction.repository';
-import { Client } from 'src/domain/client/client.entity';
+import { Transaction } from '../../../domain/transaction/transaction.entity';
+import { TransactionRepository } from '../../../domain/transaction/transaction.repository';
+import { Client } from '../../../domain/client/client.entity';
 
 @Injectable()
 export class TypeOrmTransactionRepository implements TransactionRepository {
