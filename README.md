@@ -7,14 +7,32 @@ A modern, responsive single-page application (SPA) for purchasing tech products 
 
 ## 📸 Screenshots
 
-### 📦 Product List
+### 🛒 Product List
 ![Product List](./assets/products.png)
 
-### 🛍️ Cart View
+### 🧺 Cart View
 ![Cart](./assets/cart.png)
 
-### 💳 Credit Card Payment Modal
-![Payment Form](./assets/payment.png)
+### 💳 Card Information Input
+![Card Data](./assets/cardData.png)
+
+### 📦 Delivery Information Form
+![Destinatary Data](./assets/destinataryData.png)
+
+### 🧾 Payment Summary View
+![Summary](./assets/summary.png)
+
+### ⏳ Payment Loading State
+![Loading](./assets/loading.png)
+
+### ✅ Successful Payment Confirmation
+![Success](./assets/success.png)
+
+### ❌ Payment Failure State
+![Error Payment](./assets/errorPayment.png)
+
+### ⚠️ Incomplete Payment Attempt
+![Payment Incomplete](./assets/paymentIncomplete.png)
 
 ---
 
