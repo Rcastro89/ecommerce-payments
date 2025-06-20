@@ -15,7 +15,7 @@ export class TypeOrmClientRepository implements ClientRepository {
     return this.repository.save(client);
   }
 
-  async findByEmail(email: string): Promise<Client | null> {
-    return this.repository.findOneBy({ email });
+  async findById(id: number): Promise<Client | null> {
+    return this.repository.findOne({ where: { id_client: id } });
   }
 }

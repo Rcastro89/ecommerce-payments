@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IWompiService } from '../../domain/ports/wompi.service.interface';
 import { PaymentRequestDto } from '../../infrastructure/payment/dto/payment-request.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { ClientRepository } from 'src/domain/client/client.repository';
+import { Client } from 'src/domain/client/client.entity';
 
 type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 
@@ -10,6 +12,9 @@ export class PaymentUseCase {
     constructor(
         @Inject('IWompiService')
         private readonly wompiService: IWompiService,
+
+        @Inject(ClientRepository)
+        private readonly clientRepository: ClientRepository
     ) { }
 
     async execute(dto: PaymentRequestDto): Promise<
@@ -19,7 +24,27 @@ export class PaymentUseCase {
         >
     > {
         try {
-            // Paso 1: Obtener acceptance tokens
+            // Paso 1: Validar que el cliente exista
+            const clientExists = await this.clientRepository.findById(Number(dto.customer.idClient));
+
+            if (clientExists) {
+                clientExists.full_name = dto.customer.fullName;
+                clientExists.phone = dto.customer.phone;
+                clientExists.email = dto.customer.email;
+
+                await this.clientRepository.save(clientExists);
+            } else {
+                const newClient = new Client();
+                newClient.id_client = Number(dto.customer.idClient);
+                newClient.full_name = dto.customer.fullName;
+                newClient.email = dto.customer.email;
+                newClient.phone = dto.customer.phone;
+                newClient.created_at = new Date();
+
+                await this.clientRepository.save(newClient);
+            }
+            
+            // Paso 2: Obtener acceptance tokens
             const tokens = await this.wompiService.getAcceptanceToken();
             if (!tokens) {
                 return {

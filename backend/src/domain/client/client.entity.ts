@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
+import { Entity, Column, CreateDateColumn, OneToMany, PrimaryColumn } from 'typeorm';
 import { Transaction } from '../transaction/transaction.entity';
 
 @Entity()
 export class Client {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id_client: number;
 
   @Column()
