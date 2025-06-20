@@ -9,7 +9,7 @@ export class TypeOrmProductRepository implements ProductRepository {
   constructor(
     @InjectRepository(Product)
     private readonly repository: Repository<Product>,
-  ) {}
+  ) { }
 
   async findAll(): Promise<Product[]> {
     return this.repository.find();
@@ -30,4 +30,10 @@ export class TypeOrmProductRepository implements ProductRepository {
   async preloadData(products: Product[]): Promise<void> {
     await this.repository.save(products);
   }
+
+  async updateMultipleStock(updates: { id: number, quantity: number }[]): Promise<void> {
+  for (const { id, quantity } of updates) {
+    await this.repository.decrement({ idProduct: id }, 'stock', quantity);
+  }
+}
 }

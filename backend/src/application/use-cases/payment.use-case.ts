@@ -9,6 +9,8 @@ import { TransactionItemRepository } from 'src/domain/transaction/transaction-it
 import { TransactionItem } from 'src/domain/transaction/transaction-item.entity';
 import { DeliveryRepository } from 'src/domain/delivery/delivery.repository';
 import { Delivery } from 'src/domain/delivery/delivery.entity';
+import { ProductRepository } from 'src/domain/product/product.repository';
+import { Transaction } from 'src/domain/transaction/transaction.entity';
 
 type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 
@@ -29,6 +31,9 @@ export class PaymentUseCase {
 
         @Inject(DeliveryRepository)
         private readonly deliveryRepository: DeliveryRepository,
+
+        @Inject(ProductRepository)
+        private readonly productRepository: ProductRepository,
     ) { }
 
     async execute(dto: PaymentRequestDto): Promise<
@@ -38,6 +43,10 @@ export class PaymentUseCase {
         >
     > {
         try {
+            const updateTransactionStatus = async (transactionObjetc: Transaction, status: string) => {
+                await this.transactionRepository.updateStatus(transactionObjetc.id_transaction, status);
+            }
+
             // Paso 1: Validar que el cliente exista
             const clientExists = await this.clientRepository.findById(Number(dto.customer.idClient));
 
@@ -91,7 +100,9 @@ export class PaymentUseCase {
 
             // Paso 4: Obtener acceptance tokens
             const tokens = await this.wompiService.getAcceptanceToken();
+
             if (!tokens) {
+                updateTransactionStatus(transactionObjetc, 'FAILED');
                 return {
                     ok: false,
                     error: { step: 'ACCEPTANCE_TOKEN', message: 'Error obteniendo acceptance token' },
@@ -101,6 +112,7 @@ export class PaymentUseCase {
             // Paso 5: Tokenizar la tarjeta
             const cardToken = await this.wompiService.tokenizeCard(dto);
             if (!cardToken) {
+                updateTransactionStatus(transactionObjetc, 'FAILED');
                 return {
                     ok: false,
                     error: { step: 'CARD_TOKENIZATION', message: 'Error tokenizando la tarjeta' },
@@ -120,6 +132,7 @@ export class PaymentUseCase {
             });
 
             if (!transaction) {
+                updateTransactionStatus(transactionObjetc, 'FAILED');
                 return {
                     ok: false,
                     error: { step: 'TRANSACTION', message: 'Error creando la transacción' },
@@ -128,7 +141,6 @@ export class PaymentUseCase {
 
             // Paso 7: Actualizar la transacción en la base de datos
             transactionObjetc.gatewayTransactionId = transaction.transactionId;
-            transactionObjetc.status = 'PENDING';
             await this.transactionRepository.updateGatewayTransactionId(transactionObjetc.id_transaction, transaction.transactionId);
 
             const maxRetries = 10;
@@ -163,6 +175,14 @@ export class PaymentUseCase {
             delivery.transaction = transactionObjetc;
 
             await this.deliveryRepository.save(delivery);
+
+            // Paso 11: Actualizar el stock de los productos
+            await this.productRepository.updateMultipleStock(
+                dto.products.map((p) => ({
+                    id: p.idProduct,
+                    quantity: p.quantity,
+                }))
+            );
 
             return {
                 ok: true,

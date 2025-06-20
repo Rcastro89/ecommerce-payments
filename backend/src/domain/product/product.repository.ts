@@ -6,4 +6,5 @@ export abstract class ProductRepository {
   abstract save(product: Product): Promise<Product>;
   abstract updateStock(id: number, newStock: number): Promise<void>;
   abstract preloadData(products: Product[]): Promise<void>;
+  abstract updateMultipleStock(updates: { id: number, quantity: number }[]): Promise<void>;
 }
