@@ -17,7 +17,7 @@ export const CartCard = ({ cartItems, deleteAllItem, deleteOneItem, addOneItem }
             {cartItems.map((item) => (
                 <li key={item.idProduct} className="cart-item">
                     <img
-                        src={testImage}
+                        src={item.imageUrl || testImage}
                         alt={item.name}
                         className="cart-item-image"
                     />
