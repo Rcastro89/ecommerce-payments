@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import type { CartItem, FormCardData } from "../../../types/cartItem";
-import { postCheckout } from "../services/checkoutService";
+import type { CartItem } from "../../../types/cartItem";
+import type { FormCardData } from "../../../types/payment";
+import { postCheckout } from "../services/paymentService";
 import { useAppSelector } from "../../../hooks/useAppSelector";
-import { selecTotalItems } from "../slices/selectors";
+import { selecTotalItems } from "../../cart/slices/selectors";
 import { useAppDispatch } from "../../../hooks/useAppDispatch";
 import { resetProducts } from "../../product/slices/productsSlice";
-import { clearCart } from "../slices/cartSlice";
+import { clearCart } from "../../cart/slices/cartSlice";
+import type { FormCustomerData } from "../../../types/customer";
 
 export function useCheckout() {
     const [loading, setLoading] = useState(false);
@@ -19,13 +21,13 @@ export function useCheckout() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const checkout = async (formData: FormCardData) => {
+    const checkout = async (formData: FormCardData, formCustomerData: FormCustomerData) => {
         setLoading(true);
         setError(null);
         setSuccess(false);
 
         try {
-            const response = await postCheckout(items, formData);
+            const response = await postCheckout(items, formData, formCustomerData);
             if (response?.ok) {
                 setSuccess(true);
                 dispatch(resetProducts());

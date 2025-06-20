@@ -1,4 +1,6 @@
-import type { CartItem, FormCardData } from "../../../types/cartItem";
+import type { CartItem } from "../../../types/cartItem";
+import type { FormCustomerData } from "../../../types/customer";
+import type { FormCardData } from "../../../types/payment";
 
 const API_URL = import.meta.env.VITE_API_PRODUCTS;
 
@@ -17,31 +19,20 @@ interface CardPayload {
     installments: string;
 }
 
-interface CustomerPayload {
-    address?: string;
-    phone?: string;
-    email?: string;
-}
-
 interface PaymentPayload {
     card: CardPayload,
     products: ProductPayload[];
-    customer: CustomerPayload;
+    customer: FormCustomerData;
 }
 
-export async function postCheckout(cartItems: CartItem[], formData: FormCardData) {
-    const customerPayload: CustomerPayload = {
-        address: formData.address,
-        phone: formData.phone,
-        email: formData.email,
-    };
+export async function postCheckout(cartItems: CartItem[], formCardData: FormCardData, formCustomerData: FormCustomerData) {
     const cardPayload: CardPayload = {
-        number: formData.cardNumber.replace(/\s/g, ""),
-        cvc: formData.cvv,
-        exp_month: formData.expiry.slice(0, 2),
-        exp_year: formData.expiry.slice(3, 5),
-        card_holder: formData.cardHolder,
-        installments: formData.installments,
+        number: formCardData.cardNumber.replace(/\s/g, ""),
+        cvc: formCardData.cvv,
+        exp_month: formCardData.expiry.slice(0, 2),
+        exp_year: formCardData.expiry.slice(3, 5),
+        card_holder: formCardData.cardHolder,
+        installments: formCardData.installments,
     }
     const checkoutItems: ProductPayload[] = cartItems.map(item => ({
         idProduct: item.idProduct,
@@ -52,7 +43,7 @@ export async function postCheckout(cartItems: CartItem[], formData: FormCardData
     const payload: PaymentPayload = {
         card: cardPayload,
         products: checkoutItems,
-        customer: customerPayload,
+        customer: formCustomerData,
     };
 
     try {

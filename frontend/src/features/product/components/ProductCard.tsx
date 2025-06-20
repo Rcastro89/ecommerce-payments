@@ -25,7 +25,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
     const { handleAddToCart } = useProductCart();
 
-    console.log("ProductCard render", imageUrl);
     return (
         <article
             ref={cardRef}

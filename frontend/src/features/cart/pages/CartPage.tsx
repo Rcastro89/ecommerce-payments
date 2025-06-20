@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { CartCard } from '../components/CartCard';
 import { useCart } from '../hooks/useCart';
 
-import './CartPage.scss';
-import CreditCardModal from '../components/CreditCardModal';
 import { useProductCart } from '../../../hooks/useProductCart';
+import { PaymentModal } from '../../payment/modals/PaymentModal';
+
+import './CartPage.scss';
 
 const CartPage = () => {
-    const [showCreditCardModal, setShowCreditCardModal] = useState(false);
+    const [showPaymentModalModal, setShowPaymentModalModal] = useState(false);
     const { cartItemsList, subtotalPayment, handleDeleteToCart, handleDeleteOneItem, handleDeleteToCartAll} = useCart();
     const { handleAddToCart } = useProductCart();
 
@@ -39,13 +40,13 @@ const CartPage = () => {
                 </section>
                 <button
                     className='cart-footer-payment-button'
-                    onClick={() => {setShowCreditCardModal(true)}}
+                    onClick={() => {setShowPaymentModalModal(true)}}
                 >
                     Pagar con tarjeta de crédito
                 </button>
             </footer>
-            {showCreditCardModal && (
-                <CreditCardModal onClose={() => {setShowCreditCardModal(false)}}/>
+            {showPaymentModalModal && (
+                <PaymentModal onClose={() => {setShowPaymentModalModal(false)}}/>
             )}
         </main>
     );

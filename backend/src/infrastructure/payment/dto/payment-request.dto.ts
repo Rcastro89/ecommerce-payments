@@ -40,6 +40,12 @@ class ProductToBuyDto {
 
 class CustomerDto {
   @IsString()
+  idClient: string;
+
+  @IsString()
+  fullName: string;
+
+  @IsString()
   address: string;
 
   @IsString()
