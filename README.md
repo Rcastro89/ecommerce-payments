@@ -8,13 +8,13 @@ A modern, responsive single-page application (SPA) for purchasing tech products 
 ## 📸 Screenshots
 
 ### 📦 Product List
-![Product List](./assets/screenshots/products.png)
+![Product List](./assets/products.png)
 
 ### 🛍️ Cart View
-![Cart](./assets/screenshots/cart.png)
+![Cart](./assets/cart.png)
 
 ### 💳 Credit Card Payment Modal
-![Payment Form](./assets/screenshots/payment.png)
+![Payment Form](./assets/payment.png)
 
 ---
 
