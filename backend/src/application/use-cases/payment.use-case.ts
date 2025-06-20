@@ -2,15 +2,15 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IWompiService } from '../../domain/ports/wompi.service.interface';
 import { PaymentRequestDto } from '../../infrastructure/payment/dto/payment-request.dto';
 import { v4 as uuidv4 } from 'uuid';
-import { ClientRepository } from 'src/domain/client/client.repository';
-import { Client } from 'src/domain/client/client.entity';
-import { TransactionRepository } from 'src/domain/transaction/transaction.repository';
-import { TransactionItemRepository } from 'src/domain/transaction/transaction-item.repository';
-import { TransactionItem } from 'src/domain/transaction/transaction-item.entity';
-import { DeliveryRepository } from 'src/domain/delivery/delivery.repository';
-import { Delivery } from 'src/domain/delivery/delivery.entity';
-import { ProductRepository } from 'src/domain/product/product.repository';
-import { Transaction } from 'src/domain/transaction/transaction.entity';
+import { ClientRepository } from '../../domain/client/client.repository';
+import { Client } from '../../domain/client/client.entity';
+import { TransactionRepository } from '../../domain/transaction/transaction.repository';
+import { TransactionItemRepository } from '../../domain/transaction/transaction-item.repository';
+import { TransactionItem } from '../../domain/transaction/transaction-item.entity';
+import { DeliveryRepository } from '../../domain/delivery/delivery.repository';
+import { Delivery } from '../../domain/delivery/delivery.entity';
+import { ProductRepository } from '../../domain/product/product.repository';
+import { Transaction } from '../../domain/transaction/transaction.entity';
 
 type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 
