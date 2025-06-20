@@ -9,9 +9,10 @@
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["jest", "node"]
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests", "__mocks__"],
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

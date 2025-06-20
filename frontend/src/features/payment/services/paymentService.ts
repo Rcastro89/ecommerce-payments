@@ -2,7 +2,7 @@ import type { CartItem } from "../../../types/cartItem";
 import type { FormCustomerData } from "../../../types/customer";
 import type { FormCardData } from "../../../types/payment";
 
-const API_URL = import.meta.env.VITE_API_PRODUCTS;
+const API_URL = "http://localhost:3000";
 
 interface ProductPayload {
     idProduct: number;

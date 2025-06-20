@@ -1,6 +1,6 @@
 import type { Product } from "../../../types/product";
 
-const API_URL = import.meta.env.VITE_API_PRODUCTS;
+const API_URL = "http://localhost:3000";
 
 export const getProducts = async (): Promise<Product[]> => {
     if (!API_URL) {

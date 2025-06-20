@@ -9,6 +9,7 @@ const config: Config = {
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     moduleNameMapper: {
+        '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/__mocks__/fileMock.ts',
         '\\.(css|scss)$': 'identity-obj-proxy',
     },
     testMatch: [
@@ -18,6 +19,7 @@ const config: Config = {
     collectCoverageFrom: [
         'src/**/*.{ts,tsx}',
         'tests/**/*.{ts,tsx}',
+        '__mocks__/**/*.{ts,tsx}',
         '!src/**/*.d.ts',
         '!src/**/index.ts',
         '!src/setupTests.ts',
