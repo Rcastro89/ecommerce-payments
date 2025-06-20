@@ -12,10 +12,13 @@ export class Transaction {
   transaction_uuid: string;
 
   @Column()
-  status: string; // 'PENDING', 'APPROVED', etc.
+  status: string;
 
   @Column()
   total: number;
+
+  @Column({ name: 'gateway_transaction_id', nullable: true })
+  gatewayTransactionId?: string;
 
   @CreateDateColumn()
   created_at: Date;

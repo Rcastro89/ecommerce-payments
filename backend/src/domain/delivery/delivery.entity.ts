@@ -10,13 +10,7 @@ export class Delivery {
   address: string;
 
   @Column()
-  city: string;
-
-  @Column()
-  country: string;
-
-  @Column()
-  delivery_status: string; // 'PENDING', 'SENT', etc.
+  delivery_status: string;
 
   @OneToOne(() => Transaction, (transaction) => transaction.delivery)
   @JoinColumn({ name: 'id_transaction' })

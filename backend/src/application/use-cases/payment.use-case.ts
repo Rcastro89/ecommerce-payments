@@ -4,6 +4,11 @@ import { PaymentRequestDto } from '../../infrastructure/payment/dto/payment-requ
 import { v4 as uuidv4 } from 'uuid';
 import { ClientRepository } from 'src/domain/client/client.repository';
 import { Client } from 'src/domain/client/client.entity';
+import { TransactionRepository } from 'src/domain/transaction/transaction.repository';
+import { TransactionItemRepository } from 'src/domain/transaction/transaction-item.repository';
+import { TransactionItem } from 'src/domain/transaction/transaction-item.entity';
+import { DeliveryRepository } from 'src/domain/delivery/delivery.repository';
+import { Delivery } from 'src/domain/delivery/delivery.entity';
 
 type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 
@@ -14,7 +19,16 @@ export class PaymentUseCase {
         private readonly wompiService: IWompiService,
 
         @Inject(ClientRepository)
-        private readonly clientRepository: ClientRepository
+        private readonly clientRepository: ClientRepository,
+
+        @Inject(TransactionRepository)
+        private readonly transactionRepository: TransactionRepository,
+
+        @Inject(TransactionItemRepository)
+        private readonly transactionItemRepository: TransactionItemRepository,
+
+        @Inject(DeliveryRepository)
+        private readonly deliveryRepository: DeliveryRepository,
     ) { }
 
     async execute(dto: PaymentRequestDto): Promise<
@@ -43,8 +57,39 @@ export class PaymentUseCase {
 
                 await this.clientRepository.save(newClient);
             }
-            
-            // Paso 2: Obtener acceptance tokens
+
+            //Paso 2: Crear transacción pendiente
+            const reference = uuidv4();
+            const amountInCents = dto.products.reduce((total, p) => {
+                return total + (p.quantity * p.unitPrice) * 100;
+            }, 0);
+
+            const transactionObjetc = await this.transactionRepository.createPendingTransaction(
+                reference,
+                Number(dto.customer.idClient),
+                amountInCents
+            );
+
+            if (!transactionObjetc) {
+                return {
+                    ok: false,
+                    error: { step: 'TRANSACTION', message: 'Error creando la transacción pendiente' },
+                };
+            }
+
+            // Paso 3: Guardar los items de la transacción
+            const items: TransactionItem[] = dto.products.map((p) => {
+                const item = new TransactionItem();
+                item.transaction = transactionObjetc;
+                item.product = { idProduct: p.idProduct } as any;
+                item.quantity = p.quantity;
+                item.unit_price = p.unitPrice;
+                return item;
+            });
+
+            await this.transactionItemRepository.save(items);
+
+            // Paso 4: Obtener acceptance tokens
             const tokens = await this.wompiService.getAcceptanceToken();
             if (!tokens) {
                 return {
@@ -53,7 +98,7 @@ export class PaymentUseCase {
                 };
             }
 
-            // Paso 2: Tokenizar la tarjeta
+            // Paso 5: Tokenizar la tarjeta
             const cardToken = await this.wompiService.tokenizeCard(dto);
             if (!cardToken) {
                 return {
@@ -62,11 +107,7 @@ export class PaymentUseCase {
                 };
             }
 
-            // Paso 3: Crear la transacción
-            const reference = uuidv4();
-            const amountInCents = dto.products.reduce((total, p) => {
-                return total + (p.quantity * p.unitPrice) * 100;
-            }, 0);
+            // Paso 6: Crear la transacción
 
             const transaction = await this.wompiService.createTransaction({
                 acceptanceToken: tokens.endUserPolicyToken,
@@ -85,15 +126,25 @@ export class PaymentUseCase {
                 };
             }
 
+            // Paso 7: Actualizar la transacción en la base de datos
+            transactionObjetc.gatewayTransactionId = transaction.transactionId;
+            transactionObjetc.status = 'PENDING';
+            await this.transactionRepository.updateGatewayTransactionId(transactionObjetc.id_transaction, transaction.transactionId);
+
             const maxRetries = 10;
             let currentRetry = 0;
             let status: string | null = 'PENDING';
 
+            // Paso 8: Validar el estado de la transacción
             while (status === 'PENDING' && currentRetry < maxRetries) {
                 await new Promise((resolve) => setTimeout(resolve, 2000));
                 status = await this.wompiService.getTransactionStatus(transaction.transactionId);
                 currentRetry++;
             }
+
+            // Paso 9: Actualizar el estado de la transacción en la base de datos
+            if (status !== null)
+                await this.transactionRepository.updateStatus(transactionObjetc.id_transaction, status);
 
             if (status !== 'APPROVED') {
                 return {
@@ -104,6 +155,14 @@ export class PaymentUseCase {
                     },
                 };
             }
+
+            // Paso 10: Crear la entrega
+            const delivery = new Delivery();
+            delivery.address = dto.customer.address;
+            delivery.delivery_status = 'PENDING';
+            delivery.transaction = transactionObjetc;
+
+            await this.deliveryRepository.save(delivery);
 
             return {
                 ok: true,

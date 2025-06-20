@@ -12,6 +12,13 @@ const CartPage = () => {
     const { cartItemsList, subtotalPayment, handleDeleteToCart, handleDeleteOneItem, handleDeleteToCartAll} = useCart();
     const { handleAddToCart } = useProductCart();
 
+    const handlecontinue = () => {
+        if (cartItemsList.length === 0) {
+            return;
+        }
+        setShowPaymentModalModal(true);
+    }
+
     return (
         <main className="cart-page">
             <header className="cart-page-title"><span>🛒 Tu Carrito</span><button onClick={handleDeleteToCartAll}>🗑️</button></header>
@@ -40,7 +47,7 @@ const CartPage = () => {
                 </section>
                 <button
                     className='cart-footer-payment-button'
-                    onClick={() => {setShowPaymentModalModal(true)}}
+                    onClick={handlecontinue}
                 >
                     Pagar con tarjeta de crédito
                 </button>
