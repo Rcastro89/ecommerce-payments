@@ -13,7 +13,7 @@ export const useFetchProducts = () => {
 
 
     useEffect(() => {
-        if (isLoaded) return;
+        if (isLoaded && productsItems.length > 0) return;
         dispatch(fetchProducts());
     }, []);
 

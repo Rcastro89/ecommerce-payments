@@ -2,7 +2,7 @@ import type { CartItem } from "../../../types/cartItem";
 import type { FormCustomerData } from "../../../types/customer";
 import type { FormCardData } from "../../../types/payment";
 
-const API_URL = "https://2770-3-149-8-187.ngrok-free.app";
+const API_URL = " https://optimum-joint-whale.ngrok-free.app";
 
 interface ProductPayload {
     idProduct: number;
@@ -51,6 +51,7 @@ export async function postCheckout(cartItems: CartItem[], formCardData: FormCard
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                'ngrok-skip-browser-warning': 'true',
             },
             body: JSON.stringify(payload),
         });
