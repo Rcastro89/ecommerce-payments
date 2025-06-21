@@ -355,12 +355,64 @@ The backend API is currently exposed via a secure tunnel using **ngrok**.
 | Method | Route              | Description                   |
 |--------|--------------------|-------------------------------|
 | GET    | `/products`        | Retrieve all products         |
-| POST   | `/products`        | Create a new product          |
-| GET    | `/products/:id`    | Get a specific product by ID  |
-| PUT    | `/products/:id`    | Update a product by ID        |
-| DELETE | `/products/:id`    | Delete a product by ID        |
+| POST   | `/payment`        | Create a new product          |
 
 > 💡 You can test these endpoints using tools like **Postman** or **cURL**.  
+
+---
+
+## 🧪 API Testing
+
+You can test the live API using Postman.
+
+### 📦 Collection
+
+- **Postman Collection File:** [ecommerce-payments.postman_collection.json](./postman/ecommerce-payments.postman_collection.json)
+- **Base URL:** `https://optimum-joint-whale.ngrok-free.app`
+
+### ✅ Endpoints
+
+| Method | Endpoint     | Description |
+|--------|--------------|-------------|
+| GET    | `/products`  | Returns all available products |
+| POST   | `/payment`   | Processes a full payment flow using ROP (Request-on-Payment) strategy |
+
+> ⚠️ **Note:** When calling the `/payment` endpoint, a full payment flow will be executed:
+>
+> 1. Create a customer record.
+> 2. Create and process a transaction using the payment gateway.
+> 3. Update the transaction status.
+> 4. Create the shipment order.
+>
+> This is all handled automatically inside the `/payment` route.
+
+### 💳 Sample `/payment` payload
+
+```json
+{
+  "card": {
+    "number": "4242424242424242",
+    "cvc": "123",
+    "exp_month": "05",
+    "exp_year": "28",
+    "card_holder": "TEST CARD",
+    "installments": "2"
+  },
+  "products": [
+    {
+      "idProduct": 2,
+      "quantity": 1,
+      "unitPrice": 2899000
+    }
+  ],
+  "customer": {
+    "idClient": "123456789",
+    "fullName": "Pedro Perez",
+    "address": "Av siempre viva",
+    "phone": "3124456789",
+    "email": "test@test.com"
+  }
+}
 
 ---
 

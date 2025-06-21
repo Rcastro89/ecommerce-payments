@@ -1,0 +1,48 @@
+{
+  "info": {
+    "name": "Ecommerce Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "ecommerce-payments-collection"
+  },
+  "item": [
+    {
+      "name": "🛍️ Get All Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://optimum-joint-whale.ngrok-free.app/products",
+          "protocol": "https",
+          "host": ["optimum-joint-whale", "ngrok-free", "app"],
+          "path": ["products"]
+        }
+      }
+    },
+    {
+      "name": "💳 Create Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "ngrok-skip-browser-warning",
+            "value": "true"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"card\": {\n    \"number\": \"4242424242424242\",\n    \"cvc\": \"123\",\n    \"exp_month\": \"05\",\n    \"exp_year\": \"28\",\n    \"card_holder\": \"TEST CARD\",\n    \"installments\": \"2\"\n  },\n  \"products\": [\n    {\n      \"idProduct\": 2,\n      \"quantity\": 1,\n      \"unitPrice\": 2899000\n    }\n  ],\n  \"customer\": {\n    \"idClient\": \"123456789\",\n    \"fullName\": \"Pedro Perez\",\n    \"address\": \"Av siempre viva\",\n    \"phone\": \"3124456789\",\n    \"email\": \"test@test.com\"\n  }\n}"
+        },
+        "url": {
+          "raw": "https://optimum-joint-whale.ngrok-free.app/payment",
+          "protocol": "https",
+          "host": ["optimum-joint-whale", "ngrok-free", "app"],
+          "path": ["payment"]
+        }
+      }
+    }
+  ]
+}
