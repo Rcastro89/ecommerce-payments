@@ -2,7 +2,7 @@ import type { CartItem } from "../../../types/cartItem";
 import type { FormCustomerData } from "../../../types/customer";
 import type { FormCardData } from "../../../types/payment";
 
-const API_URL = "http://3.92.180.101:3000";
+const API_URL = "https://2770-3-149-8-187.ngrok-free.app";
 
 interface ProductPayload {
     idProduct: number;
