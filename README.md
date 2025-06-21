@@ -425,22 +425,6 @@ You can test the live API using Postman.
 
 ---
 
-## 📄 API Documentation
-
-> Swagger documentation in progress.
-
-Currently available endpoints:
-
-| Method | Endpoint                   | Description                     |
-|--------|----------------------------|---------------------------------|
-| GET    | `/products`                | Retrieve products with stock    |
-| POST   | `/payments/checkout`       | Start payment process           |
-| GET    | `/transactions/:id/status` | Check payment result            |
-
-Postman collection will be added to the repository.
-
----
-
 ## 🧾 Final Notes
 
 - Tests coverage ≥ 80% verified with Jest.
