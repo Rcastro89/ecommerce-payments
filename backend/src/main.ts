@@ -8,10 +8,12 @@ async function bootstrap() {
 
   const config = app.get(ConfigService);
   const port = config.get<number>('PORT') ?? 3000;
-  const origin = config.get<string>('CORS_ORIGIN') ?? '*';
 
   app.enableCors({
-    origin,
+    origin: [
+      "https://ecommerce-payments-quem51klu-r-castro-m-yahooes-projects.vercel.app/",
+      "http://localhost:5173"
+    ],
     credentials: true,
   });
 
