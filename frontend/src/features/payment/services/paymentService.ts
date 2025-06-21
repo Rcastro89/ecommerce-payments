@@ -2,7 +2,7 @@ import type { CartItem } from "../../../types/cartItem";
 import type { FormCustomerData } from "../../../types/customer";
 import type { FormCardData } from "../../../types/payment";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "http://3.92.180.101:3000";
 
 interface ProductPayload {
     idProduct: number;
