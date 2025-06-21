@@ -413,7 +413,7 @@ You can test the live API using Postman.
     "email": "test@test.com"
   }
 }
-
+```
 ---
 
 ## 🔐 Security
