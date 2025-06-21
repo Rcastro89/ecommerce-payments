@@ -334,7 +334,33 @@ Recommended strategy:
 | Backend     | AWS Lambda or EC2   |
 | Database    | RDS (PostgreSQL)    |
 
-Once deployed, public URLs will be added here.
+🔗 **Live Web App**:  
+https://ecommerce-payments-quem51klu-r-castro-m-yahooes-projects.vercel.app/
+
+> ⚠️ **Note**: The app is designed using a *mobile-first* approach.  
+> For the best experience, please open the site using developer tools (`F12`)  
+> and enable the device toolbar to simulate a mobile view.
+
+---
+
+## 🔐 API Access
+
+The backend API is currently exposed via a secure tunnel using **ngrok**.
+
+📡 **API Base URL**:  
+`https://optimum-joint-whale.ngrok-free.app`
+
+📄 **Available Endpoints:**
+
+| Method | Route              | Description                   |
+|--------|--------------------|-------------------------------|
+| GET    | `/products`        | Retrieve all products         |
+| POST   | `/products`        | Create a new product          |
+| GET    | `/products/:id`    | Get a specific product by ID  |
+| PUT    | `/products/:id`    | Update a product by ID        |
+| DELETE | `/products/:id`    | Delete a product by ID        |
+
+> 💡 You can test these endpoints using tools like **Postman** or **cURL**.  
 
 ---
 
